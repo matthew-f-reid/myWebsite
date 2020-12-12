@@ -1,0 +1,171 @@
+* {
+  box-sizing: border-box;
+}
+
+/* Style the body */
+body {
+  font-family: Arial, Helvetica, sans-serif;
+  margin: 0;
+}
+
+/* Header/logo Title */
+.header {
+  padding: 80px;
+  text-align: center;
+  background: linear-gradient(25deg, #1abc9c, #9c1abc);
+  color: white;
+}
+
+/* Increase the font size of the heading */
+.header h1 {
+    font-size: 80px;
+    margin-top: 5px;
+    margin-bottom: 5px;
+    animation-name: beat;
+    animation-duration: 5s;
+    animation-iteration-count: 1;
+}
+.header h1:hover {
+    animation-name: title;
+    animation-duration: 1s;
+    animation-iteration-count: infinite;
+}
+.header p {
+    animation-name: beat;
+    animation-duration: 5s;
+    animation-iteration-count: 1;
+}
+
+/* Sticky navbar - toggles between relative and fixed, depending on the scroll position. It is positioned relative until a given offset position is met in the viewport - then it "sticks" in place (like position:fixed). The sticky value is not supported in IE or Edge 15 and earlier versions. However, for these versions the navbar will inherit default position */
+.navbar {
+  overflow: hidden;
+  background-color: #9c1abc;
+    height: 50px;
+  position: sticky;
+  position: -webkit-sticky;
+  top: 0;
+}
+
+/* Style the navigation bar links */
+.navbar a {
+  float: left;
+  display: block;
+  color: white;
+  text-align: center;
+  padding: 14px 20px;
+  text-decoration: none;
+}
+
+/* Change color on hover */
+.navbar a:hover {
+    transform:  scale(1.5);
+}
+.navbar a:active {
+    color: black;
+}
+
+/* Column container */
+.row {  
+  display: flex;
+  flex-wrap: wrap;
+}
+
+/* Create two unequal columns that sits next to each other */
+/* Sidebar/left column */
+.side {
+  flex: 15%;
+  background-color: #1abc9c;
+  padding: 20px;
+}
+
+/* Main column */
+.main {   
+  flex: 85%;
+  background-color: #1a9cbc;
+  padding: 20px;
+}
+.img {
+    text-align: center;
+    padding-top: 50px;
+    padding-bottom: 50px;
+}
+img {
+    height: 300px;
+  padding: 30px;
+}
+img:hover {
+    transform: scale(1.5);
+}
+#button {
+    font-size: 20px;
+    border-bottom-style: solid;
+}
+.howto {
+    float: right;
+    border: 2px;
+    padding: 10px;
+    border-style: solid;
+}
+
+/* Footer */
+.footer {
+  padding: 20px;
+  text-align: center;
+  background: #ddd;
+}
+
+/* Responsive layout - when the screen is less than 700px wide, make the two columns stack on top of each other instead of next to each other */
+@media screen and (max-width: 700px) {
+  .row {   
+    flex-direction: column;
+  }
+}
+
+/* Responsive layout - when the screen is less than 400px wide, make the navigation links stack on top of each other instead of next to each other */
+@media screen and (max-width: 400px) {
+  .navbar a {
+    float: none;
+    width: 100%;
+  }
+}
+
+@keyframes beat {
+    0% {
+      transform: scale(0);
+    }
+    20% {
+      color: lawngreen;
+    }
+    40% {
+      color: orange;
+    }
+    60% {
+      color: hotpink;
+    }
+    80% {
+      color: purple;
+    }
+    100% {
+      transform: scale(1);
+    }
+  }
+@keyframes title {
+    0% {
+      color: blue;
+    }
+    20% {
+      color: lawngreen;
+    }
+    40% {
+      color: orange;
+    }
+    60% {
+      color: hotpink;
+    }
+    80% {
+      color: purple;
+    }
+    100% {
+      color: red;
+    }
+  }

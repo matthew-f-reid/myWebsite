@@ -1,0 +1,64 @@
+{
+    "scores": [
+        {
+            "user": "Bob",
+            "cars": 100,
+            "mode": "EASY",
+            "rating": 1
+        },
+        {
+            "user": "John",
+            "cars": 100,
+            "mode": "HARD",
+            "rating": 3
+        },
+        {
+            "user": "Bob",
+            "cars": 50,
+            "mode": "MED",
+            "rating": 2
+        },
+        {
+            "user": "john",
+            "cars": 60,
+            "mode": "MED",
+            "rating": 2
+        },
+        {
+            "user": "Bob",
+            "cars": 30,
+            "mode": "HARD",
+            "rating": 3
+        },
+        {
+            "user": "Mary",
+            "cars": 80,
+            "mode": "EASY",
+            "rating": 1
+        },
+        {
+            "user": "Andy",
+            "cars": 45,
+            "mode": "EASY",
+            "rating": 1
+        },
+        {
+            "user": "Mary",
+            "cars": 56,
+            "mode": "MED",
+            "rating": 2
+        },
+        {
+            "user": "Andy",
+            "cars": 34,
+            "mode": "HARD",
+            "rating": 3
+        },
+        {
+            "user": "Mary",
+            "cars": 35,
+            "mode": "MED",
+            "rating": 2
+        }
+    ]
+}

@@ -1,0 +1,93 @@
+* {
+  box-sizing: border-box;
+}
+
+/* Style the body */
+body {
+  font-family: Arial, Helvetica, sans-serif;
+  margin: 0;
+}
+
+/* Header/logo Title */
+.header {
+  padding: 20px;
+  text-align: center;
+  background: linear-gradient(45deg, #1abc9c, #9c1abc);
+  color: white;
+}
+
+/* Increase the font size of the heading */
+.header h1 {
+    font-size: 80px;
+    animation-name: beat;
+    animation-duration: 5s;
+    animation-iteration-count: 1;
+}
+.header p {
+    animation-name: beat;
+    animation-duration: 5s;
+    animation-iteration-count: 1;
+}
+
+/* Sticky navbar - toggles between relative and fixed, depending on the scroll position. It is positioned relative until a given offset position is met in the viewport - then it "sticks" in place (like position:fixed). The sticky value is not supported in IE or Edge 15 and earlier versions. However, for these versions the navbar will inherit default position */
+.navbar {
+  overflow: visible;
+  background: linear-gradient(90deg, #1abc9c, #9c1abc);
+    padding: 50px;
+  position: sticky;
+  position: -webkit-sticky;
+  top: 0;
+}
+
+a .button {
+    font-size: 20px;
+    width: auto;
+    height: 50px;
+    text-align: center;
+    padding: 10px;
+    background-color: red;
+    text-decoration: none;
+}
+
+/* Style the navigation bar links 
+.navbar a {
+  float: left;
+  display: block;
+  color: white;
+  text-align: center;
+  padding: 14px 20px;
+  text-decoration: none;
+    transform: rotate(0deg) scale(1.2);
+    background-color: blue
+}*/
+
+/* Change color on hover */
+a .button:hover {
+    font-size: 40px;
+}
+
+/* Fake image, just for this example */
+.img {
+  background-color: #aaa;
+  width: 100%;
+  padding: 20px;
+}
+.img:hover {
+    transform: scale(2);
+}
+
+/* Footer */
+.footer {
+  padding: 20px;
+  text-align: center;
+  background: #ddd;
+}
+
+@keyframes beat {
+    0% {
+      transform: scale(0);
+    }
+    100% {
+      transform: scale(1);
+    }
+  }
