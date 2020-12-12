@@ -21,12 +21,12 @@ body {
     font-size: 80px;
     margin-top: 5px;
     margin-bottom: 5px;
-    animation-name: beat;
+    animation-name: title;
     animation-duration: 5s;
-    animation-iteration-count: 1;
+    animation-iteration-count: infinite;
 }
 .header h1:hover {
-    animation-name: title;
+    animation-name: beat;
     animation-duration: 1s;
     animation-iteration-count: infinite;
 }
@@ -67,20 +67,17 @@ body {
 /* Column container */
 .row {  
   display: flex;
-  flex-wrap: wrap;
 }
 
 /* Create two unequal columns that sits next to each other */
 /* Sidebar/left column */
 .side {
-  flex: 15%;
   background-color: #1abc9c;
   padding: 20px;
 }
 
 /* Main column */
 .main {   
-  flex: 85%;
   background-color: #1a9cbc;
   padding: 20px;
 }
