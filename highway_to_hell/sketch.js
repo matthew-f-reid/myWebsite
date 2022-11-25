@@ -232,7 +232,7 @@ function setup() {
     
     //Button/Slider positions
     difficulty.position(
-        (maxW / 2) -(difficulty.width / 2), buttonY * 8.7);
+        (maxW / 2) -(difficulty.width / 2), buttonY * 7.2);
     nameTextfield.position(
         (width / 2) -inputSize, buttonY * 11);
     
