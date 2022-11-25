@@ -1,8 +1,8 @@
 //Canvas Size
-let maxH = $(window).height();
-let maxW = $(window).width();
-//let maxH = 900;
-//let maxW = 600;
+//let maxH = $(window).height();
+//let maxW = $(window).width();
+let maxH = 900;
+let maxW = 600;
 //Car/Fireball size
 let carH = maxH / 6;
 let carW = maxW / 8;
@@ -289,6 +289,8 @@ function draw() {
         playerFuel--;
     }
     counter++;
+    console.log(maxH);
+    console.log(maxW);
 }
 
 //Draw road with moving lines
