@@ -21,7 +21,7 @@ const HARD = 3;
 let currentState = LOADING;
 //Video variables
 let video;
-let finished = true;
+let finished = false;
 //Is enemy at bottom of screen
 let atBottom = false;
 //Is game initialized
@@ -289,8 +289,6 @@ function draw() {
         playerFuel--;
     }
     counter++;
-    console.log(maxH);
-    console.log(maxW);
 }
 
 //Draw road with moving lines
@@ -884,13 +882,13 @@ function submitScore(){
     if (userName.length > 8) {
         userName = userName.substring(0,10);
     }
-    let difMode = checkMode();
-    let carNum = carsPassed;
+    //let difMode = checkMode();
+    //let carNum = carsPassed;
     let save = { "scores":
                 {
                     "user": userName,
-                    "cars": carNum,
-                    "mode": difMode,
+                    "cars": carsPassed,
+                    "mode": checkMode(),
                     "rating": rating
                 }
                }
