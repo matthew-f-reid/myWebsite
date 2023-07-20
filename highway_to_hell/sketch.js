@@ -6,6 +6,8 @@ let maxW = 600;
 //Car/Fireball size
 let carH = maxH / 6;
 let carW = maxW / 16;
+carH = carH/2;
+carW = carW/2;
 //Screen States
 const LOADING = 0;
 const MAIN_MENU = 1;
