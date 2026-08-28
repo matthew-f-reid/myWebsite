@@ -1,13 +1,9 @@
 //Canvas Size
-//let maxH = $(window).height();
-//let maxW = $(window).width();
 let maxH = 900;
 let maxW = 600;
 //Car/Fireball size
 let carH = maxH / 6;
-let carW = maxW / 16;
-carH = carH/2;
-carW = carW/2;
+let carW = maxW / 8;
 //Screen States
 const LOADING = 0;
 const MAIN_MENU = 1;
@@ -71,10 +67,12 @@ let playerFuel;
 let carsPassed;
 //Player name
 let userName;
-//JSON file containing hi scores
-let hiScoreJSON;
-//Array to store JSON file
+//Array to store hi scores fetched from the online database
 let hiScoreArray = [];
+//True while a fetch/submit to the database is in progress
+let hiScoreLoading = false;
+//Set if the last database operation failed, so we can show a message
+let hiScoreError = null;
 //Rating for difficulty mode for sorting if same cars/fireball passed value
 let rating;
 //Sounds
@@ -110,7 +108,6 @@ let font;
 //Loads images/videos/audio before starting
 function preload(){
     video = createVideo('assets/video/Intro.mp4');
-    hiScoreJSON = loadJSON('assets/JSON/hiscores.json');
     powerUpSound = loadSound('assets/sound/fuel.mp3');
     crashSound = loadSound('assets/sound/crash.mp3');
     explodeSound = loadSound('assets/sound/explode.mp3');
@@ -130,7 +127,7 @@ function preload(){
 }
 
 //Runs once initializing starting values
-function setup() {
+function setup() {    
     createCanvas(maxW,maxH);
     frameRate(60);
     textFont(font);
@@ -225,8 +222,6 @@ function setup() {
     
     cars = new Group();
     
-    loadJson();
-    
     nameTextfield = createInput();
     difficulty = createSlider(1, 3, 0);
     
@@ -234,32 +229,44 @@ function setup() {
     
     //Button/Slider positions
     difficulty.position(
-        (maxW / 2) -(difficulty.width / 2), buttonY * 5.6)
+        (maxW / 2) -(difficulty.width / 2), buttonY * 5);
+    print(difficulty.width);
     nameTextfield.position(
-        (width / 2) -inputSize, buttonY * 11);
+        (width / 2) -inputSize, buttonY * 7.5);
     
     difficulty.hide();
     nameTextfield.hide();
 
 }
 
-//Load JSON file for highscores
-function loadJson(){
-    for(let i = 0; i < hiScoreJSON.scores.length; i++){
-        let user = hiScoreJSON.scores[i].user;
-        let carNum = hiScoreJSON.scores[i].cars;
-        let difMode = hiScoreJSON.scores[i].mode;
-        let rate = hiScoreJSON.scores[i].rating;
-        let score = {
-            "scores": {
-                "user": user,
-                "cars": carNum,
-                "mode": difMode,
-                "rating": rate
-            }
-        };
-        hiScoreArray.push(score);
+//Fetches the top 10 hi scores from the online database (Firestore),
+//sorted by cars passed (desc), then rating (desc) to break ties
+async function fetchHiScores(){
+    hiScoreLoading = true;
+    hiScoreError = null;
+    try {
+        let snapshot = await db.collection('highscores')
+            .orderBy('cars', 'desc')
+            .orderBy('rating', 'desc')
+            .limit(10)
+            .get();
+        hiScoreArray = [];
+        snapshot.forEach(doc => {
+            let d = doc.data();
+            hiScoreArray.push({
+                "scores": {
+                    "user": d.user,
+                    "cars": d.cars,
+                    "mode": d.mode,
+                    "rating": d.rating
+                }
+            });
+        });
+    } catch (err) {
+        console.error('Failed to fetch hi scores:', err);
+        hiScoreError = 'Could not load hi scores. Check your connection.';
     }
+    hiScoreLoading = false;
 }
 
 //Choose state
@@ -349,6 +356,7 @@ function play(){
 //Hiscore state
 function hiScore(){
     currentState = HI_SCORE;
+    fetchHiScores();
 }
 
 //Menu state
@@ -396,7 +404,7 @@ function displayHowTo(){
         enemy.addAnimation(
             'fire',
             'assets/img/fireball/f00.png',
-            'assets/img/fireball/f02.png');
+            'assets/img/fireball/f05.png');
         howToBool = false;
     }
     
@@ -563,12 +571,6 @@ function displayHiScores(){
     let scoreTextY = maxH / 15;
     background('black');
 
-    hiScoreArray.sort(
-        (a, b) => 
-        (a.scores.cars < b.scores.cars) ? 1 : 
-        (a.scores.cars === b.scores.cars) ? 
-        ((a.scores.rating < b.scores.rating) ? 1 : -1) : -1);
-    
     //Title
     fill('red');
     textAlign(CENTER);
@@ -583,26 +585,43 @@ function displayHiScores(){
     rect(scoreTextX, scoreTextY * 1.5, 
          scoreTextX * 18, scoreTextY * 11.5);
     
-    //HiScores
-    fill('red');
-    textSize(32);
     strokeWeight(0);
-    text("Name    Fireballs Passed    Mode", 
-         maxW / 2, scoreTextY * 2.5);
-    for(let i = 0; i < 10; i++){
-        fill(255, i * 21, 0);
+    if(hiScoreLoading){
+        fill('red');
+        textSize(28);
         textAlign(CENTER);
-        text(i + 1, 
-             scoreTextX * 2, scoreTextY * 3.5 + i * 60);
-        textAlign(LEFT);
-        text(hiScoreArray[i].scores.user, 
-             scoreTextX * 3.5, scoreTextY * 3.5 + i * 60);
+        text("Loading...", maxW / 2, scoreTextY * 6);
+    } else if(hiScoreError){
+        fill('red');
+        textSize(24);
         textAlign(CENTER);
-        text(hiScoreArray[i].scores.cars, 
-             scoreTextX * 10, scoreTextY * 3.5 + i * 60);
-        textAlign(LEFT);
-        text(hiScoreArray[i].scores.mode, 
-             scoreTextX * 14.5, scoreTextY * 3.5 + i * 60);
+        text(hiScoreError, maxW / 2, scoreTextY * 6);
+    } else if(hiScoreArray.length === 0){
+        fill('red');
+        textSize(28);
+        textAlign(CENTER);
+        text("No scores yet — be the first!", maxW / 2, scoreTextY * 6);
+    } else {
+        //HiScores
+        fill('red');
+        textSize(32);
+        text("Name    Fireballs Passed    Mode", 
+             maxW / 2, scoreTextY * 2.5);
+        for(let i = 0; i < hiScoreArray.length; i++){
+            fill(255, i * 21, 0);
+            textAlign(CENTER);
+            text(i + 1, 
+                 scoreTextX * 2, scoreTextY * 3.5 + i * 60);
+            textAlign(LEFT);
+            text(hiScoreArray[i].scores.user, 
+                 scoreTextX * 3.5, scoreTextY * 3.5 + i * 60);
+            textAlign(CENTER);
+            text(hiScoreArray[i].scores.cars, 
+                 scoreTextX * 10, scoreTextY * 3.5 + i * 60);
+            textAlign(LEFT);
+            text(hiScoreArray[i].scores.mode, 
+                 scoreTextX * 14.5, scoreTextY * 3.5 + i * 60);
+        }
     }
     
     nameTextfield.hide();
@@ -801,7 +820,7 @@ function initializeCars(){
         car.attractionPoint(rand, randX[randXStart], maxH + carH);
         car.addAnimation('fire', 
                          'assets/img/fireball/f00.png', 
-                         'assets/img/fireball/f02.png');
+                         'assets/img/fireball/f05.png');
         carsArray[i] = car;
         cars.add(car);
     }
@@ -877,31 +896,34 @@ function damageCar(){
     }
 }
 
-//Adds new entry into hiScoreArray
-function submitScore(){
+//Submits the player's score to the online database
+async function submitScore(){
     gameOver.stop(0);
-    userName = nameTextfield.value();
-    if (userName.length > 8) {
-        userName = userName.substring(0,10);
+    userName = nameTextfield.value().trim();
+    if(userName.length === 0){
+        userName = "Anonymous";
     }
-    //let difMode = checkMode();
-    //let carNum = carsPassed;
-    let save = { "scores":
-                {
-                    "user": userName,
-                    "cars": carsPassed,
-                    "mode": checkMode(),
-                    "rating": rating
-                }
-               }
-    hiScoreArray.push(save);
-    //saveJson();
-    hiScore();
-}
+    //Cap name length so the leaderboard stays readable
+    userName = userName.substring(0, 15);
+    let difMode = checkMode();
+    let carNum = carsPassed;
 
-//download hiscores to json file
-function saveJson(){
-    saveJSON(hiScoreArray, 'hiscores.json');
+    submitButton.text = "Submitting...";
+
+    try {
+        await db.collection('highscores').add({
+            user: userName,
+            cars: carNum,
+            mode: difMode,
+            rating: rating,
+            submitted: firebase.firestore.FieldValue.serverTimestamp()
+        });
+    } catch (err) {
+        console.error('Failed to submit score:', err);
+    }
+
+    submitButton.text = "Submit";
+    hiScore();
 }
 
 //Maps difficulty mode
@@ -912,16 +934,16 @@ function setMode(mode){
 //Checks if player pressed movement keys
 //Movement speed depends on difficulty mode
 function checkMovement(){
-    if(keyIsDown(65)){
+    if(keyIsDown(LEFT_ARROW)){
         player.position.x -=setMode(mode);
     }
-    if(keyIsDown(68)){
+    if(keyIsDown(RIGHT_ARROW)){
         player.position.x +=setMode(mode);
     }
-    if(keyIsDown(87)){
+    if(keyIsDown(UP_ARROW)){
         player.position.y -=setMode(mode);
     }
-    if(keyIsDown(83)){
+    if(keyIsDown(DOWN_ARROW)){
         player.position.y +=setMode(mode);
     }
 }

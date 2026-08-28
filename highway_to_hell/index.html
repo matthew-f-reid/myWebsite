@@ -1,31 +1,21 @@
 <!DOCTYPE html>
-<html lang="en">
-    <link rel="stylesheet" href="../styles.css">
+<html lang="">
   <head>
-      <meta charset="UTF-8">
-      <meta name="viewport" content="width=device-width, initial-scale=1">
-      <title>Highway to hell</title>
-      <script src="assets/lib/p5.js"></script>
-      <script src="assets/lib/p5.dom.js"></script>
-      <script src="assets/lib/p5.play.js"></script>
-      <script src="assets/lib/p5.sound.js"></script>
-      <script src="assets/lib/p5.clickable.js"></script>
-      <script src="sketch.js"></script>
-      <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MY GAME</title>
+    <style> body {padding: 0; margin: 0;} </style>
+    <script src="assets/lib/p5.js"></script>
+    <script src="assets/lib/p5.dom.js"></script>
+    <script src="assets/lib/p5.play.js"></script>
+    <script src="assets/lib/p5.sound.js"></script>
+    <script src="assets/lib/p5.clickable.js"></script>
+    <!-- Firebase (used for the online hi-score leaderboard) -->
+    <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore-compat.js"></script>
+    <script src="firebase-config.js"></script>
+    <script src="sketch.js"></script>
   </head>
   <body>
-        <div class="navbar">
-              <a href="../index.html">Home</a>
-        </div>
-      <div class="howto">
-          <h1>How To Play</h1>
-          <hr>
-          <p>Avoid fireballs. Collect health & repair pickups</p>
-          <h3>Controls:</h3>
-          <h4>W: Up</h4>
-          <h4>S: Down</h4>
-          <h4>A: Left</h4>
-          <h4>D: Right</h4>
-      </div>
   </body>
 </html>
