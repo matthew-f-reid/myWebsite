@@ -129,6 +129,10 @@ function preload(){
 //Runs once initializing starting values
 function setup() {    
     createCanvas(maxW,maxH);
+    let cnv = document.querySelector('canvas');
+    if (cnv) {
+        document.querySelector('.game-stage').appendChild(cnv);
+    }
     frameRate(60);
     textFont(font);
     
