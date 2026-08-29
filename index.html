@@ -1,59 +1,77 @@
 <!DOCTYPE html>
 <html lang="en">
-    <link rel="stylesheet" href="styles.css">
-    <head>
-        <title>Matthew Reid</title>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-    </head>
-    <body>
-        <div class="header">
-            <h1>Matthew Reid</h1>
-            <p>A static website created by me to show some of the projects I have undertaken.</p>
-        </div>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Matthew Reid</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
 
-        <div class="navbar">
-              <a href="index.html">Home</a>
-        </div>
+  <nav class="navbar">
+    <a class="brand" href="index.html">MATTHEW REID</a>
+    <div class="navlinks">
+      <a href="index.html">Home</a>
+      <a href="#projects">Projects</a>
+    </div>
+  </nav>
 
-        <div class="row">
+  <header class="header">
+    <div class="header-inner">
+      <p class="eyebrow">Portfolio</p>
+      <h1>Matthew Reid</h1>
+      <div class="rule"></div>
+      <p class="tagline">A static site showcasing a few of the projects I've built.</p>
+    </div>
+  </header>
 
-              <div id="projects" class="main">
-                  <div class="project" id="js">
-                    <h1>Highway To Hell</h3>
-                    <h2>JavaScript Game</h2>
-                    <h5>Completed: 10 January 2020</h5>
-                    <p>Highway to hell is a top down scrolling game. The player is driving along a highway towards hell. The goal is to pass as many fireballs while fuel is slowly draining. Collect extra fuel and repair pickups.</p>
-                    <p>With the help of using p5 libraries i was able to make this game within a week. Hiscores do not save on exiting the game.</p>
-                    <a id="button" href="highway_to_hell/index.html">Click Here to Play</a>
-                    <div class="img" >
-                        <img src="assets/thumbnail/hell00.png">
-                        <img src="assets/thumbnail/hell01.png">
-                        <img src="assets/thumbnail/hell02.png">
-                        <img src="assets/thumbnail/hell03.png">
-                      </div>
-                    
-                  </div>
+  <main id="projects" class="projects">
 
-                
-                  <hr>
-                  <div class="project" id="unity">
-                      <h1>Campus Escape</h3>
-                      <h2>Unity Game</h2>
-                      <h5>Completed: 30 Deptember 2019</h5>
-                      <p>Campus Escape is a first person shooter based in a library on campus. The player must wander around avoiding zombies. The goal is to find all the keys to unlock the exit. Collect ammo pick ups to refill your ammo.</p>
-                      <div class="img" >
-                        <img src="assets/thumbnail/campus01.png">
-                        <img src="assets/thumbnail/campus02.png">
-                        <img src="assets/thumbnail/campus03.png">
-                        <img src="assets/thumbnail/campus04.png">
-                        <img src="assets/thumbnail/campus06.png">
-                      </div>
-                  </div>
-              </div>
+    <article class="project">
+      <div class="project-media">
+        <div class="img-grid">
+          <img src="assets/thumbnail/hell00.png" alt="Highway to Hell gameplay screenshot 1">
+          <img src="assets/thumbnail/hell01.png" alt="Highway to Hell gameplay screenshot 2">
+          <img src="assets/thumbnail/hell02.png" alt="Highway to Hell gameplay screenshot 3">
+          <img src="assets/thumbnail/hell03.png" alt="Highway to Hell gameplay screenshot 4">
         </div>
-        <div class="footer">
-          <h2>&copy; 2023 Matthew Reid</h2>
+      </div>
+      <div class="project-body">
+        <p class="eyebrow">JavaScript &middot; p5.js</p>
+        <h2>Highway To Hell</h2>
+        <p class="meta">Completed 10 January 2020</p>
+        <p>A top-down scrolling game where the player drives along a highway toward hell. The goal is to dodge as many fireballs as possible while fuel slowly drains — collect fuel and repair pickups to stay alive.</p>
+        <p>Built in about a week using the p5.js library. Note: high scores don't persist after the game is closed.</p>
+        <a class="button" href="highway_to_hell/index.html">Play the game</a>
+      </div>
+    </article>
+
+    <article class="project reverse">
+      <div class="project-media">
+        <div class="img-grid">
+          <img src="assets/thumbnail/campus01.png" alt="Campus Escape gameplay screenshot 1">
+          <img src="assets/thumbnail/campus02.png" alt="Campus Escape gameplay screenshot 2">
+          <img src="assets/thumbnail/campus03.png" alt="Campus Escape gameplay screenshot 3">
+          <img src="assets/thumbnail/campus04.png" alt="Campus Escape gameplay screenshot 4">
+          <img src="assets/thumbnail/campus06.png" alt="Campus Escape gameplay screenshot 5">
         </div>
-    </body>
+      </div>
+      <div class="project-body">
+        <p class="eyebrow">Unity &middot; C#</p>
+        <h2>Campus Escape</h2>
+        <p class="meta">Completed 30 September 2019</p>
+        <p>A first-person survival game set in a library on campus. The player must navigate around zombies and find every key to unlock the exit, collecting ammo pickups along the way to stay stocked.</p>
+      </div>
+    </article>
+
+  </main>
+
+  <footer class="footer">
+    <p>&copy; 2023 Matthew Reid</p>
+  </footer>
+
+</body>
 </html>
